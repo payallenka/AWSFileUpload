@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, request, jsonify, send_from_directory
 import boto3
 from botocore.exceptions import ClientError
@@ -25,8 +24,18 @@ def upload_file():
     if file.filename == '':
         return jsonify({'error': 'No selected file'})
 
+    # Get user inputs from the form
+    first_name = request.form.get('firstName')
+    subject = request.form.get('subject')
+
+    if not first_name or not subject:
+        return jsonify({'error': 'Please provide first name and subject'})
+
+    # Generate new file name with user's first name, subject, and original file name
+    new_file_name = f"{first_name}_{subject}_{file.filename}"
+
     try:
-        s3.upload_fileobj(file, BUCKET_NAME, file.filename, ExtraArgs={'ACL': 'public-read'})
+        s3.upload_fileobj(file, BUCKET_NAME, new_file_name, ExtraArgs={'ACL': 'public-read'})
         return jsonify({'message': 'File uploaded successfully'})
     except ClientError as e:
         return jsonify({'error': e.response['Error']['Message']}), 500
