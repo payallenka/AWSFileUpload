@@ -1,4 +1,3 @@
-// script.js
 // Replace 'YOUR_ACCESS_KEY_ID' and 'YOUR_SECRET_ACCESS_KEY' with your actual AWS credentials
 const accessKeyId = 'AKIA5FTZCPHEM6Z5BLVI';
 const secretAccessKey = 'tQHNVgC0dATjKWCzHlZaDHg5Aoa/SYDDHzD8P1sO';
